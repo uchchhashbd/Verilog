@@ -1,0 +1,36 @@
+module mux21(I0,I1,S,F);
+input I0,I1,S;
+output reg F;
+
+always @(I0,I1,S)
+begin
+if (S==0)
+F = I0;
+else
+F = I1;
+end
+endmodule
+
+module mux21_tb;
+reg I0, I1, S;
+wire F;
+
+mux21 uut(.I0(I0), .I1(I1), .S(S), .F(F));
+
+initial begin
+S = 1'b0;
+I0 = 1'b0;
+I1 = 1'b0;
+end
+
+always
+#20 S = ~S;
+always
+#10 I0 = ~I0;
+always
+#5 I1 = ~I1;
+
+initial begin
+#100 $finish();
+end
+endmodule
