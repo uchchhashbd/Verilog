@@ -1,0 +1,47 @@
+module decoder24(a,b,e,q);
+input a,b,e;
+output reg [3:0]q;
+
+always@(*)
+begin
+if (e == 1)
+	if(a==0 & b==0)
+		q = 4'b0001;
+	else if(a==0 & b==1)
+		q = 4'b0010;
+	else if(a==1 & b==0)
+		q = 4'b0100;
+	else
+		q = 4'b1000;
+else
+	q = 4'b0000;
+end
+endmodule
+
+
+module decoder24_tb;
+
+reg a,b,e;
+wire [3:0]q;
+
+decoder24 uut(.a(a),.b(b),.e(e),.q(q));
+
+initial begin
+a = 1'b0;
+b = 1'b0;
+e = 1'b0;
+end
+
+always
+#10 a = ~a;
+always
+#20 b = ~b;
+always
+#30 e = ~e;
+
+initial begin
+#120 $finish();
+end
+endmodule
+
+
