@@ -1,0 +1,27 @@
+module and_gate(x,y,z);
+input x,y;
+output z;
+assign z =(x&y);
+endmodule
+
+
+module and_gate_tb;
+reg x,y;
+wire z;
+
+and_gate uut(.x(x), .y(y), .z(z));
+
+initial begin
+x = 1'b0;
+y = 1'b0;
+end
+
+always
+#20 x = ~x;
+always
+#10 y = ~y;
+
+initial begin
+#100 $finish();
+end
+endmodule
